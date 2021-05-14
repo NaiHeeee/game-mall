@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+
+    <!-- 引入配置文件-->
+    <properties resource="jdbc.properties" />
+    <!-- 指定数据连接驱动jar地址 -->
+    <!-- <classPathEntry location="" /> -->
+    <!-- 一个数据库一个context -->
+    <context id="steam" targetRuntime="MyBatis3">
+        <commentGenerator>
+            <property name="suppressAllComments" value="true" /><!-- 是否取消注释 -->
+            <property name="suppressDate" value="false" /><!-- 是否生成注释代时间戳 -->
+        </commentGenerator>
+
+        <!-- jdbc连接 -->
+        <jdbcConnection driverClass="${jdbc.driverClassName}"
+                        connectionURL="${jdbc.url}"
+                        userId="${jdbc.username}" password="${jdbc.password}"/>
+
+        <!-- 类型转换 -->
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false" />
+            <!-- 是否使用bigDecimal， false可自动转化以下类型（Long, Integer, Short, etc.） -->
+        </javaTypeResolver>
+
+        <!-- 生成实体类地址 -->
+        <javaModelGenerator targetPackage="com.yuier.steam.entity" targetProject="src/main/java">
+            <!-- 是否在当前路径下新加一层schema,eg：false路径com.phhc.model， true:com.phhc.model.[schemaName] -->
+            <property name="enableSubPackages" value="false" />
+            <!-- 是否针对string类型的字段在set的时候进行trim调用 -->
+            <property name="trimStrings" value="false" />
+            <property name="immutable" value="false"/>
+        </javaModelGenerator>
+
+        <!-- 对应的xml mapper文件 -->
+        <sqlMapGenerator targetPackage="com.yuier.steam.mapper" targetProject="src/main/java">
+            <property name="enableSubPackages" value="false" />
+        </sqlMapGenerator>
+
+        <!-- 对应的dao接口 -->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.yuier.steam.dao" targetProject="src/main/java">
+            <property name="enableSubPackages" value="false" />
+        </javaClientGenerator>
+        <!-- 配置表信息 表名为数据库的表名-->
+
+        <table  tableName="user" domainObjectName="User"
+                enableCountByExample="true" enableDeleteByExample="true"
+                enableSelectByExample="true"	selectByExampleQueryId="true"
+                enableUpdateByExample="true">
+            <columnOverride column="content" jdbcType="VARCHAR" />
+        </table>
+<!--    <table tableName="user_info" domainObjectName="UserInfo"/>
+        <table tableName="game" domainObjectName="Game"/>
+        <table tableName="comment" domainObjectName="Comment"></table>
+        <table tableName="message" domainObjectName="Message"></table>
+        <table tableName="order" domainObjectName="Order"></table>
+        <table tableName="relation" domainObjectName="Relation"></table>
+        <table tableName="repertory" domainObjectName="Repertory"></table>
+        <table tableName="update" domainObjectName="Update"></table>
+        <table tableName="wishlist" domainObjectName="WishList"></table>-->
+    </context>
+
+
+</generatorConfiguration>
+
