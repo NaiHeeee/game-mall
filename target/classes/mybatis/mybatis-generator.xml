@@ -28,7 +28,7 @@
         </javaTypeResolver>
 
         <!-- 生成实体类地址 -->
-        <javaModelGenerator targetPackage="com.yuier.steam.entity" targetProject="src/main/java">
+        <javaModelGenerator targetPackage="com.yuier.gamemall.entity" targetProject="src/main/java">
             <!-- 是否在当前路径下新加一层schema,eg：false路径com.phhc.model， true:com.phhc.model.[schemaName] -->
             <property name="enableSubPackages" value="false" />
             <!-- 是否针对string类型的字段在set的时候进行trim调用 -->
@@ -37,12 +37,12 @@
         </javaModelGenerator>
 
         <!-- 对应的xml mapper文件 -->
-        <sqlMapGenerator targetPackage="com.yuier.steam.mapper" targetProject="src/main/java">
+        <sqlMapGenerator targetPackage="com.yuier.gamemall.mapper" targetProject="src/main/java">
             <property name="enableSubPackages" value="false" />
         </sqlMapGenerator>
 
         <!-- 对应的dao接口 -->
-        <javaClientGenerator type="XMLMAPPER" targetPackage="com.yuier.steam.dao" targetProject="src/main/java">
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.yuier.gamemall.dao" targetProject="src/main/java">
             <property name="enableSubPackages" value="false" />
         </javaClientGenerator>
         <!-- 配置表信息 表名为数据库的表名-->
