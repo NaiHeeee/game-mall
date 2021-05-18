@@ -1,7 +1,7 @@
 package com.yuier.gamemall.dao;
 
-import com.yuier.gamemall.entity.User;
-import com.yuier.gamemall.entity.UserExample;
+import com.yuier.gamemall.pojo.User;
+import com.yuier.gamemall.pojo.UserExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 

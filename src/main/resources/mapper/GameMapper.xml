@@ -1,0 +1,386 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yuier.gamemall.dao.GameMapper">
+  <resultMap id="BaseResultMap" type="com.yuier.gamemall.pojo.Game">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="game_name" jdbcType="VARCHAR" property="gameName" />
+    <result column="price" jdbcType="DECIMAL" property="price" />
+    <result column="disCount" jdbcType="DECIMAL" property="discount" />
+    <result column="picture" jdbcType="VARCHAR" property="picture" />
+    <result column="video" jdbcType="VARCHAR" property="video" />
+    <result column="label" jdbcType="VARCHAR" property="label" />
+    <result column="download" jdbcType="VARCHAR" property="download" />
+    <result column="release_date" jdbcType="DATE" property="releaseDate" />
+    <result column="sales" jdbcType="INTEGER" property="sales" />
+    <result column="synopsis" jdbcType="VARCHAR" property="synopsis" />
+    <result column="developer" jdbcType="VARCHAR" property="developer" />
+    <result column="distributor" jdbcType="VARCHAR" property="distributor" />
+    <result column="insert_time" jdbcType="TIMESTAMP" property="insertTime" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="is_valid" jdbcType="INTEGER" property="isValid" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, game_name, price, disCount, picture, video, label, download, release_date, sales, 
+    synopsis, developer, distributor, insert_time, remark, is_valid
+  </sql>
+  <select id="selectByExample" parameterType="com.yuier.gamemall.pojo.GameExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from game
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from game
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from game
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.yuier.gamemall.pojo.GameExample">
+    delete from game
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.yuier.gamemall.pojo.Game">
+    insert into game (id, game_name, price, 
+      disCount, picture, video, 
+      label, download, release_date, 
+      sales, synopsis, developer, 
+      distributor, insert_time, remark, 
+      is_valid)
+    values (#{id,jdbcType=BIGINT}, #{gameName,jdbcType=VARCHAR}, #{price,jdbcType=DECIMAL}, 
+      #{discount,jdbcType=DECIMAL}, #{picture,jdbcType=VARCHAR}, #{video,jdbcType=VARCHAR}, 
+      #{label,jdbcType=VARCHAR}, #{download,jdbcType=VARCHAR}, #{releaseDate,jdbcType=DATE}, 
+      #{sales,jdbcType=INTEGER}, #{synopsis,jdbcType=VARCHAR}, #{developer,jdbcType=VARCHAR}, 
+      #{distributor,jdbcType=VARCHAR}, #{insertTime,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR}, 
+      #{isValid,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yuier.gamemall.pojo.Game">
+    insert into game
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="gameName != null">
+        game_name,
+      </if>
+      <if test="price != null">
+        price,
+      </if>
+      <if test="discount != null">
+        disCount,
+      </if>
+      <if test="picture != null">
+        picture,
+      </if>
+      <if test="video != null">
+        video,
+      </if>
+      <if test="label != null">
+        label,
+      </if>
+      <if test="download != null">
+        download,
+      </if>
+      <if test="releaseDate != null">
+        release_date,
+      </if>
+      <if test="sales != null">
+        sales,
+      </if>
+      <if test="synopsis != null">
+        synopsis,
+      </if>
+      <if test="developer != null">
+        developer,
+      </if>
+      <if test="distributor != null">
+        distributor,
+      </if>
+      <if test="insertTime != null">
+        insert_time,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="isValid != null">
+        is_valid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="gameName != null">
+        #{gameName,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="discount != null">
+        #{discount,jdbcType=DECIMAL},
+      </if>
+      <if test="picture != null">
+        #{picture,jdbcType=VARCHAR},
+      </if>
+      <if test="video != null">
+        #{video,jdbcType=VARCHAR},
+      </if>
+      <if test="label != null">
+        #{label,jdbcType=VARCHAR},
+      </if>
+      <if test="download != null">
+        #{download,jdbcType=VARCHAR},
+      </if>
+      <if test="releaseDate != null">
+        #{releaseDate,jdbcType=DATE},
+      </if>
+      <if test="sales != null">
+        #{sales,jdbcType=INTEGER},
+      </if>
+      <if test="synopsis != null">
+        #{synopsis,jdbcType=VARCHAR},
+      </if>
+      <if test="developer != null">
+        #{developer,jdbcType=VARCHAR},
+      </if>
+      <if test="distributor != null">
+        #{distributor,jdbcType=VARCHAR},
+      </if>
+      <if test="insertTime != null">
+        #{insertTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="isValid != null">
+        #{isValid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.yuier.gamemall.pojo.GameExample" resultType="java.lang.Long">
+    select count(*) from game
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update game
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.gameName != null">
+        game_name = #{record.gameName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.price != null">
+        price = #{record.price,jdbcType=DECIMAL},
+      </if>
+      <if test="record.discount != null">
+        disCount = #{record.discount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.picture != null">
+        picture = #{record.picture,jdbcType=VARCHAR},
+      </if>
+      <if test="record.video != null">
+        video = #{record.video,jdbcType=VARCHAR},
+      </if>
+      <if test="record.label != null">
+        label = #{record.label,jdbcType=VARCHAR},
+      </if>
+      <if test="record.download != null">
+        download = #{record.download,jdbcType=VARCHAR},
+      </if>
+      <if test="record.releaseDate != null">
+        release_date = #{record.releaseDate,jdbcType=DATE},
+      </if>
+      <if test="record.sales != null">
+        sales = #{record.sales,jdbcType=INTEGER},
+      </if>
+      <if test="record.synopsis != null">
+        synopsis = #{record.synopsis,jdbcType=VARCHAR},
+      </if>
+      <if test="record.developer != null">
+        developer = #{record.developer,jdbcType=VARCHAR},
+      </if>
+      <if test="record.distributor != null">
+        distributor = #{record.distributor,jdbcType=VARCHAR},
+      </if>
+      <if test="record.insertTime != null">
+        insert_time = #{record.insertTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.remark != null">
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isValid != null">
+        is_valid = #{record.isValid,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update game
+    set id = #{record.id,jdbcType=BIGINT},
+      game_name = #{record.gameName,jdbcType=VARCHAR},
+      price = #{record.price,jdbcType=DECIMAL},
+      disCount = #{record.discount,jdbcType=DECIMAL},
+      picture = #{record.picture,jdbcType=VARCHAR},
+      video = #{record.video,jdbcType=VARCHAR},
+      label = #{record.label,jdbcType=VARCHAR},
+      download = #{record.download,jdbcType=VARCHAR},
+      release_date = #{record.releaseDate,jdbcType=DATE},
+      sales = #{record.sales,jdbcType=INTEGER},
+      synopsis = #{record.synopsis,jdbcType=VARCHAR},
+      developer = #{record.developer,jdbcType=VARCHAR},
+      distributor = #{record.distributor,jdbcType=VARCHAR},
+      insert_time = #{record.insertTime,jdbcType=TIMESTAMP},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      is_valid = #{record.isValid,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yuier.gamemall.pojo.Game">
+    update game
+    <set>
+      <if test="gameName != null">
+        game_name = #{gameName,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null">
+        price = #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="discount != null">
+        disCount = #{discount,jdbcType=DECIMAL},
+      </if>
+      <if test="picture != null">
+        picture = #{picture,jdbcType=VARCHAR},
+      </if>
+      <if test="video != null">
+        video = #{video,jdbcType=VARCHAR},
+      </if>
+      <if test="label != null">
+        label = #{label,jdbcType=VARCHAR},
+      </if>
+      <if test="download != null">
+        download = #{download,jdbcType=VARCHAR},
+      </if>
+      <if test="releaseDate != null">
+        release_date = #{releaseDate,jdbcType=DATE},
+      </if>
+      <if test="sales != null">
+        sales = #{sales,jdbcType=INTEGER},
+      </if>
+      <if test="synopsis != null">
+        synopsis = #{synopsis,jdbcType=VARCHAR},
+      </if>
+      <if test="developer != null">
+        developer = #{developer,jdbcType=VARCHAR},
+      </if>
+      <if test="distributor != null">
+        distributor = #{distributor,jdbcType=VARCHAR},
+      </if>
+      <if test="insertTime != null">
+        insert_time = #{insertTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="isValid != null">
+        is_valid = #{isValid,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yuier.gamemall.pojo.Game">
+    update game
+    set game_name = #{gameName,jdbcType=VARCHAR},
+      price = #{price,jdbcType=DECIMAL},
+      disCount = #{discount,jdbcType=DECIMAL},
+      picture = #{picture,jdbcType=VARCHAR},
+      video = #{video,jdbcType=VARCHAR},
+      label = #{label,jdbcType=VARCHAR},
+      download = #{download,jdbcType=VARCHAR},
+      release_date = #{releaseDate,jdbcType=DATE},
+      sales = #{sales,jdbcType=INTEGER},
+      synopsis = #{synopsis,jdbcType=VARCHAR},
+      developer = #{developer,jdbcType=VARCHAR},
+      distributor = #{distributor,jdbcType=VARCHAR},
+      insert_time = #{insertTime,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR},
+      is_valid = #{isValid,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
