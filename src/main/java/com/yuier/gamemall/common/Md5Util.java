@@ -15,7 +15,7 @@ public class Md5Util {
         try {
             MessageDigest md = MessageDigest.getInstance("MD5");
             md.update(str.getBytes());
-            byte b[] = md.digest();
+            byte[] b = md.digest();
             int i;
             for (int offset = 0; offset < b.length; offset++) {
                 i = b[offset];
@@ -28,12 +28,14 @@ public class Md5Util {
                 sb.append(Integer.toHexString(i));
             }
         } catch (Exception e) {
+            e.printStackTrace();
             return null;
-            //          e.printStackTrace();
         }
         return sb.toString();
     }
-    /*测试md5*/
+    /**
+     * 测试md5
+     */
     public static void main(String[] args) {
         try {
             System.out.println( Md5Util.EncoderByMd5("123"));

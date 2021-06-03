@@ -26,3 +26,10 @@ spring:
     maxPoolPreparedStatementPerConnectionSize: 20
     useGlobalDataSourceStat: true
     connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=500
+
+    rabbitmq:
+      #mq的连接信息,可直接多host连接和单host连接
+      addresses: localhost
+      port: 5672
+      username: guest
+      password: guest

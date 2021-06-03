@@ -2,6 +2,12 @@ package com.yuier.gamemall.pojo;
 
 import java.util.Date;
 
+/**
+ * 管理用户
+ *
+ * @author yuier
+ * @date 2021/05/18
+ */
 public class AdminUser {
     private Long id;
 
